@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Voting System</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            color: black;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .candidate {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .candidate:hover {
+            background: #f2f2f2;
+            transform: scale(1.02);
+        }
+
+        .candidate img {
+            width: 90px;
+            height: 90px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .candidate-info {
+            flex: 1;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            background: #1e3c72;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #16305a;
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 40px;
+            display: none;
+        }
+
+        .success-message h2 {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="voteForm">
+
+    <h2>Online Voting System</h2>
+
+    <label>Voter Card ID (Numbers Only)</label>
+    <input type="number" id="voterId" placeholder="Enter your voter ID" required>
+
+    <label>Full Name</label>
+    <input type="text" id="fullName" placeholder="Enter your full name" required>
+
+    <h3>Select Your Candidate</h3>
+
+    <!-- Gagan Thapa -->
+    <div class="candidate">
+        <input type="radio" name="candidate" value="Gagan Thapa - Nepali Congress">
+        <img src="picture/gagan.jpg" alt="Gagan Thapa">
+        <div class="candidate-info">
+            <strong>Gagan Thapa</strong><br>
+            Party: Nepali Congress
+        </div>
+    </div>
+
+    <!-- Balen Shah -->
+    <div class="candidate">
+        <input type="radio" name="candidate" value="Balen Shah - RSP">
+        <img src="picture/balen.jpg" alt="Balen Shah">
+        <div class="candidate-info">
+            <strong>Balen Shah</strong><br>
+            Party: RSP
+        </div>
+    </div>
+
+    <!-- KP Sharma Oli -->
+    <div class="candidate">
+        <input type="radio" name="candidate" value="KP Sharma Oli - UML">
+        <img src="picture/kpoli.jpg" alt="KP Sharma Oli">
+        <div class="candidate-info">
+            <strong>KP Sharma Oli</strong><br>
+            Party: UML
+        </div>
+    </div>
+
+    <!--Gyanendra shahi-->
+    <div class="candidate">
+        <input type="radio" name="candidate" value="Gyanendra shahi - RPP">
+        <img src="picture/Gyanendra.jpg" alt="Gyanendra shahi">
+        <div class="candidate-info">
+            <strong>Gyanendra shahi</strong><br>
+            Party:RPP
+        </div>
+    </div>
+
+    <button onclick="submitVote()">Submit Vote</button>
+</div>
+
+<!-- SUCCESS SCREEN -->
+<div class="container success-message" id="successBox">
+    <h2>✅ Vote Submitted Successfully!</h2>
+    <p id="confirmationText"></p>
+</div>
+
+<script>
+function submitVote() {
+    let voterId = document.getElementById("voterId").value;
+    let fullName = document.getElementById("fullName").value;
+    let candidate = document.querySelector('input[name="candidate"]:checked');
+
+    if (voterId === "" || fullName === "" || !candidate) {
+        alert("Please fill all fields and select a candidate.");
+        return;
+    }
+
+    if (!/^[A-Za-z ]+$/.test(fullName)) {
+        alert("Full Name must contain letters and spaces only.");
+        return;
+    }
+
+    document.getElementById("voteForm").style.display = "none";
+    document.getElementById("successBox").style.display = "block";
+
+    document.getElementById("confirmationText").innerHTML =
+        "<strong>Name:</strong> " + fullName + "<br>" +
+        "<strong>Voter ID:</strong> " + voterId + "<br>" +
+        "<strong>Voted For:</strong> " + candidate.value + "<br><br>" +
+        "Thank you for participating in the election.";
+}
+</script>
+
+</body>
+</html>
